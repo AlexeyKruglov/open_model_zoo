@@ -9,8 +9,9 @@
 #ifndef DECODER_UTILS_H_
 #define DECODER_UTILS_H_
 
+#include <string>
 #include <utility>
-#include "fst/log.h"
+#include <stdexcept>
 #include "path_trie.h"
 #include "output.h"
 
@@ -23,7 +24,7 @@ inline void check(
     bool x, const char *expr, const char *file, int line, const char *err) {
   if (!x) {
     std::cout << "[" << file << ":" << line << "] ";
-    LOG(FATAL) << "\"" << expr << "\" check failed. " << err;
+    throw std::logic_error("\"" + std::string(expr) + "\" check failed. " + std::string(err));
   }
 }
 
