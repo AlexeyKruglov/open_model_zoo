@@ -14,6 +14,7 @@
 #include <string>
 #include <utility>
 #include <iostream>
+#include <algorithm>  // std::max
 #include <stdexcept>
 #include <unordered_map>
 

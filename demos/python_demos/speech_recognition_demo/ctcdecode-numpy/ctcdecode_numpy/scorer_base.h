@@ -11,8 +11,8 @@
 
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <unordered_map>
 
 #include "path_trie.h"
 #include "prefix_set.h"

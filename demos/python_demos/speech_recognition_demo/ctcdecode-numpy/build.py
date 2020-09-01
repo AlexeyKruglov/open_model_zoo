@@ -7,6 +7,7 @@
 #
 import os
 import glob
+import numpy
 import warnings
 import setuptools
 
@@ -42,7 +43,7 @@ ctc_sources = list(filter(lambda fname: not fname.endswith('/decoders_wrap.cpp')
 extension = setuptools.Extension(
     name='ctcdecode_numpy._impl',
     sources=ctc_sources + yoklm_sources,
-    include_dirs=third_party_includes + yoklm_includes,
+    include_dirs=third_party_includes + yoklm_includes + [numpy.get_include()],
     extra_compile_args=compile_args,
     language='c++',
     swig_opts=['-c++'],

@@ -9,9 +9,6 @@
 #include "scorer_base.h"
 
 #include <cassert>
-#include <unistd.h>
-#include <iostream>
-#include <utility>
 
 #include "decoder_utils.h"
 
