@@ -102,9 +102,12 @@ def main():
                 break
             audio_pos += audio_block.shape[0]
             #
-            # It is possible to call stt.recognize_audio() for the whole audio files instead like this:
+            # It is possible to call stt.recognize_audio(): 1) for either whole audio files or
+            # by splitting files into blocks, and 2) to reuse stt object for multiple files like this:
             #   transcription1 = stt.recognize_audio(whole_audio1, sampling_rate)
             #   transcription2 = stt.recognize_audio(whole_audio2, sampling_rate)
+            #   stt.recognize_audio(whole_audio3_block1, sampling_rate, finish=False)
+            #   transcription3 = stt.recognize_audio(whole_audio3_block2, sampling_rate, finish=True)
             # If you need intermediate features, you can call pipeline stage by stage like this:
             #    audio_features = stt.extract_mfcc(whole_audio, sampling_rate)
             #    character_probs = stt.extract_per_frame_probs(audio_features)
@@ -123,7 +126,9 @@ def main():
         if transcription is not None and len(transcription) > 0:
             print('\r' + transcription[0]['text'][-args.online_window:])
 
-    print("Overall time: {} s".format(timeit.default_timer() - start_time))
+    if not args.online:
+        # Don't show overall time in online mode because it's being slowed down with time.sleep()
+        print("Overall time: {} s".format(timeit.default_timer() - start_time))
 
     print("\nTranscription(s) and confidence score(s):")
     for candidate in transcription:

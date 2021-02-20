@@ -166,7 +166,7 @@ void CtcDecoderState::append(
               prefix->log_prob_nb_cur, log_prob_c + prefix->log_prob_nb_prev);
         }
         // get/create new prefix; returns null if the new prefix was pruned by a dictionary
-        auto prefix_new = prefix->get_path_trie(c, time_step + next_timestep_, log_prob_c);
+        auto prefix_new = prefix->get_path_trie(c, int(time_step + next_timestep_), log_prob_c);
 
         if (prefix_new != nullptr) {
           float log_p = -NUM_FLT_INF;
@@ -218,7 +218,7 @@ void CtcDecoderState::append(
     }
   }  // end of loop over time
 
-  next_timestep_ += probs_frame_num;
+  next_timestep_ += int(probs_frame_num);
 }
 
 void CtcDecoderState::finalize() {
